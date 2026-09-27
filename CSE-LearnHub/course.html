@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSE LearnHub - Course</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#0f172a;color:#fff;line-height:1.6}
+nav{height:70px;background:#111827;border-bottom:1px solid #334155;display:flex;align-items:center;justify-content:space-between;padding:0 5%}
+.logo{font-size:23px;font-weight:700}.logo span{color:#6366f1}.back{color:#fff;text-decoration:none}.wrap{width:92%;max-width:1100px;margin:35px auto}
+.card{background:#1e293b;border:1px solid #334155;border-radius:14px;padding:25px;margin-bottom:22px}
+h1{font-size:38px;color:#818cf8;margin-bottom:10px}.muted{color:#cbd5e1}
+.video{width:100%;aspect-ratio:16/9;border:0;border-radius:10px;margin-top:15px}
+h2{margin-bottom:16px}.lesson{background:#111827;border:1px solid #334155;border-radius:9px;padding:16px;margin:10px 0;cursor:pointer}.lesson:hover,.lesson.active{border-color:#6366f1;background:#202b46}.lesson p{color:#94a3b8;margin-top:5px}
+.question{background:#111827;border-radius:9px;padding:18px;margin:14px 0}.option{display:block;background:#1e293b;padding:10px;border-radius:7px;margin:7px 0;cursor:pointer}.option:hover{background:#334155}
+button,.home{background:#6366f1;color:#fff;border:0;border-radius:8px;padding:12px 20px;font-size:16px;cursor:pointer;text-decoration:none;display:inline-block}button:hover,.home:hover{background:#4f46e5}.result{margin-top:15px;font-size:18px;font-weight:700}.error{text-align:center;padding:80px 20px}.error p{color:#94a3b8;margin:10px 0 20px}
+@media(max-width:650px){nav{padding:0 18px}.wrap{width:94%}h1{font-size:30px}.card{padding:18px}}
+</style>
+</head>
+<body>
+
+<nav>
+    <div class="logo">CSE <span>LearnHub</span></div>
+    <a class="back" href="courses.html">← Back to Courses</a>
+</nav>
+
+<main class="wrap" id="app"></main>
+
+<script>
+
+const makeCourse=(title,description,video,topics,q1,q2)=>({
+    title,
+    description,
+    video,
+    lessons:topics.map((x,i)=>({
+        title:x,
+        text:`Lesson ${i+1}: Learn the fundamentals of ${x.toLowerCase()} with examples and practice.`
+    })),
+    quiz:[q1,q2]
+});
+
+const courses={
+
+python:makeCourse(
+    "Python Programming",
+    "Learn Python from the basics with videos, lessons and quizzes.",
+    "rfscVS0vtbw",
+    [
+        "Introduction to Python",
+        "Variables and Data Types",
+        "Conditions",
+        "Loops",
+        "Functions",
+        "Lists and Dictionaries",
+        "Object-Oriented Programming",
+        "Projects"
+    ],
+    [
+        "Which keyword creates a function?",
+        ["def","function","fun","create"],
+        0
+    ],
+    [
+        "Which type stores True or False?",
+        ["String","Integer","Boolean","Float"],
+        2
+    ]
+),
+
+java:makeCourse(
+    "Java Programming",
+    "Learn Java programming, OOP and core Java concepts.",
+    "eIrMbAQSU34",
+    [
+        "Introduction to Java",
+        "Variables and Data Types",
+        "Operators and Conditions",
+        "Loops",
+        "Methods",
+        "Classes and Objects",
+        "Inheritance",
+        "Exception Handling"
+    ],
+    [
+        "Which keyword creates a class?",
+        ["class","new","object","Class"],
+        0
+    ],
+    [
+        "Which method starts a Java program?",
+        ["run()","start()","main()","begin()"],
+        2
+    ]
+),
+
+c:makeCourse(
+    "C Programming",
+    "Learn C programming from basics to pointers and structures.",
+    "KJgsSFOSQv0",
+    [
+        "Introduction to C",
+        "Variables and Data Types",
+        "Operators",
+        "Conditions",
+        "Loops",
+        "Functions",
+        "Arrays",
+        "Pointers"
+    ],
+    [
+        "What is the entry point of a C program?",
+        ["start()","main()","run()","begin()"],
+        1
+    ],
+    [
+        "Which symbol ends a C statement?",
+        [".",";",":",","],
+        1
+    ]
+),
+
+cpp:makeCourse(
+    "C++ Programming",
+    "Learn C++ programming, OOP and STL fundamentals.",
+    "vLnPwxZdW4Y",
+    [
+        "Introduction to C++",
+        "Variables and Data Types",
+        "Conditions",
+        "Loops",
+        "Functions",
+        "Classes and Objects",
+        "Inheritance",
+        "STL"
+    ],
+    [
+        "C++ is based on which language?",
+        ["Java","C","Python","JavaScript"],
+        1
+    ],
+    [
+        "Which keyword creates a class?",
+        ["object","class","define","new"],
+        1
+    ]
+),
+
+html:makeCourse(
+    "HTML",
+    "Build the structure of websites using HTML.",
+    "kUMe1FH4CHE",
+    [
+        "Introduction to HTML",
+        "HTML Elements",
+        "Headings and Paragraphs",
+        "Links",
+        "Images",
+        "Forms",
+        "Tables",
+        "Semantic HTML"
+    ],
+    [
+        "HTML stands for?",
+        [
+            "Hyper Text Markup Language",
+            "High Text Machine Language",
+            "Hyper Tool Multi Language",
+            "Home Tool Markup Language"
+        ],
+        0
+    ],
+    [
+        "Which tag creates a paragraph?",
+        ["<h1>","<p>","<text>","<para>"],
+        1
+    ]
+),
+
+css:makeCourse(
+    "CSS",
+    "Learn CSS and create beautiful responsive websites.",
+    "1Rs2ND1ryYc",
+    [
+        "Introduction to CSS",
+        "Selectors",
+        "Colors and Fonts",
+        "Box Model",
+        "Display and Position",
+        "Flexbox",
+        "CSS Grid",
+        "Responsive Design"
+    ],
+    [
+        "CSS stands for?",
+        [
+            "Computer Style Sheets",
+            "Cascading Style Sheets",
+            "Creative Style System",
+            "Colorful Style Sheets"
+        ],
+        1
+    ],
+    [
+        "Which property changes text color?",
+        ["font","text","color","background"],
+        2
+    ]
+),
+
+dbms:makeCourse(
+    "DBMS",
+    "Learn databases, SQL, keys, joins and normalization.",
+    "NdeeSEknp58",
+    [
+        "Introduction to DBMS",
+        "Database Models",
+        "ER Model",
+        "Keys",
+        "SQL Basics",
+        "SQL Joins",
+        "Normalization",
+        "Transactions"
+    ],
+    [
+        "DBMS stands for?",
+        [
+            "Database Management System",
+            "Data Backup Management System",
+            "Database Machine System",
+            "Data Management Software"
+        ],
+        0
+    ],
+    [
+        "Which key uniquely identifies a record?",
+        ["Foreign Key","Primary Key","Secondary Key","Duplicate Key"],
+        1
+    ]
+),
+
+javascript:makeCourse(
+    "JavaScript",
+    "Learn JavaScript for modern web development and interactive websites.",
+    "PkZNo7MFNFg",
+    [
+        "Introduction to JavaScript",
+        "Variables",
+        "Data Types",
+        "Conditions",
+        "Loops",
+        "Functions",
+        "Arrays and Objects",
+        "DOM"
+    ],
+    [
+        "Which keyword declares a constant?",
+        ["var","let","const","constant"],
+        2
+    ],
+    [
+        "Which method selects an element by ID?",
+        ["getElementById()","selectId()","findId()","getId()"],
+        0
+    ]
+),
+
+"html-css":makeCourse(
+    "HTML & CSS",
+    "Build beautiful websites using HTML and CSS from scratch.",
+    "mU6anWqZJcc",
+    [
+        "HTML Fundamentals",
+        "HTML Elements",
+        "Forms",
+        "CSS Fundamentals",
+        "Selectors",
+        "Box Model",
+        "Flexbox",
+        "Responsive Design"
+    ],
+    [
+        "HTML provides what?",
+        ["Structure","Database","Server","Compiler"],
+        0
+    ],
+    [
+        "CSS is mainly used for?",
+        ["Styling","Database","Networking","Compilation"],
+        0
+    ]
+),
+
+react:makeCourse(
+    "React.js",
+    "Learn components, props, state and modern React development.",
+    "DLX62G4lc44",
+    [
+        "Introduction to React",
+        "JSX",
+        "Components",
+        "Props",
+        "State",
+        "Events",
+        "Hooks",
+        "React Projects"
+    ],
+    [
+        "React is mainly used for?",
+        ["UI development","Databases","Operating systems","Networking"],
+        0
+    ],
+    [
+        "Which hook manages state?",
+        ["useState","useData","useValue","useComponent"],
+        0
+    ]
+),
+
+node:makeCourse(
+    "Node.js",
+    "Build backend applications and APIs using Node.js.",
+    "Oe421EPjeBE",
+    [
+        "Introduction to Node.js",
+        "Node Modules",
+        "NPM",
+        "File System",
+        "HTTP Server",
+        "Express.js",
+        "REST APIs",
+        "Database Connection"
+    ],
+    [
+        "Node.js is mainly used for?",
+        ["Server-side JavaScript","CSS styling","Database design","Image editing"],
+        0
+    ],
+    [
+        "What does npm manage?",
+        ["Packages","Images","Hardware","Networks"],
+        0
+    ]
+),
+
+dsa:makeCourse(
+    "DSA",
+    "Learn data structures and algorithms for problem solving and placements.",
+    "8hly31xKli0",
+    [
+        "Introduction to DSA",
+        "Arrays",
+        "Linked Lists",
+        "Stacks",
+        "Queues",
+        "Trees",
+        "Graphs",
+        "Sorting and Searching"
+    ],
+    [
+        "Which structure follows LIFO?",
+        ["Queue","Stack","Tree","Graph"],
+        1
+    ],
+    [
+        "Which structure follows FIFO?",
+        ["Stack","Queue","Tree","Array"],
+        1
+    ]
+),
+
+os:makeCourse(
+    "Operating Systems",
+    "Learn processes, threads, memory, scheduling and file systems.",
+    "26QPDBe-NB8",
+    [
+        "Introduction to Operating Systems",
+        "Processes",
+        "Threads",
+        "CPU Scheduling",
+        "Synchronization",
+        "Deadlocks",
+        "Memory Management",
+        "File Systems"
+    ],
+    [
+        "What does an OS manage?",
+        ["Computer resources","Only websites","Only databases","Only code"],
+        0
+    ],
+    [
+        "Which is a CPU scheduling algorithm?",
+        ["FCFS","HTML","SQL","DNS"],
+        0
+    ]
+),
+
+networks:makeCourse(
+    "Computer Networks",
+    "Learn networking, TCP/IP, OSI, HTTP, DNS and security basics.",
+    "qiQR5rTSshw",
+    [
+        "Introduction to Networks",
+        "OSI Model",
+        "TCP/IP Model",
+        "IP Addressing",
+        "Subnetting",
+        "TCP and UDP",
+        "DNS and HTTP",
+        "Network Security"
+    ],
+    [
+        "How many layers does OSI have?",
+        ["5","6","7","8"],
+        2
+    ],
+    [
+        "DNS mainly translates domain names to?",
+        ["IP addresses","HTML","Ports","Files"],
+        0
+    ]
+),
+
+ai:makeCourse(
+    "Artificial Intelligence",
+    "Understand AI concepts, agents, search algorithms and problem solving.",
+    "JMUxmLyrhSk",
+    [
+        "Introduction to AI",
+        "Intelligent Agents",
+        "Problem Solving",
+        "BFS and DFS",
+        "A* Algorithm",
+        "Minimax",
+        "Alpha-Beta Pruning",
+        "Knowledge Representation"
+    ],
+    [
+        "AI stands for?",
+        [
+            "Artificial Intelligence",
+            "Automated Internet",
+            "Advanced Input",
+            "Artificial Interface"
+        ],
+        0
+    ],
+    [
+        "A* is a type of?",
+        ["Search algorithm","Database","Compiler","Network"],
+        0
+    ]
+),
+
+ml:makeCourse(
+    "Machine Learning",
+    "Learn supervised learning, unsupervised learning and model evaluation.",
+    "NWONeJKn6kc",
+    [
+        "Introduction to Machine Learning",
+        "Types of ML",
+        "Data Preparation",
+        "Linear Regression",
+        "Logistic Regression",
+        "Decision Trees",
+        "Clustering",
+        "Model Evaluation"
+    ],
+    [
+        "Which is supervised learning?",
+        ["Linear Regression","K-Means","Clustering","PCA"],
+        0
+    ],
+    [
+        "K-Means is used for?",
+        ["Clustering","Sorting","Routing","Compilation"],
+        0
+    ]
+),
+
+"data-science":makeCourse(
+    "Data Science",
+    "Learn statistics, data analysis, visualization and data science basics.",
+    "ua-CiDNNj30",
+    [
+        "Introduction to Data Science",
+        "Python for Data Science",
+        "NumPy",
+        "Pandas",
+        "Data Cleaning",
+        "Statistics",
+        "Data Visualization",
+        "Exploratory Data Analysis"
+    ],
+    [
+        "Which library is commonly used for DataFrames?",
+        ["Pandas","React","Express","Docker"],
+        0
+    ],
+    [
+        "Which library is used for numerical arrays?",
+        ["NumPy","Flask","Node","Git"],
+        0
+    ]
+),
+
+cybersecurity:makeCourse(
+    "Cybersecurity",
+    "Learn security fundamentals, threats, authentication and defense.",
+    "inWWhr5tnEA",
+    [
+        "Introduction to Cybersecurity",
+        "Cyber Threats",
+        "Malware",
+        "Authentication",
+        "Cryptography",
+        "Network Security",
+        "Web Security",
+        "Security Operations"
+    ],
+    [
+        "What does CIA represent in security?",
+        [
+            "Confidentiality, Integrity, Availability",
+            "Computer Internet Access",
+            "Code Internet Application",
+            "Central Information Area"
+        ],
+        0
+    ],
+    [
+        "Encryption protects?",
+        ["Information","Only hardware","Only cables","Only monitors"],
+        0
+    ]
+),
+
+"ethical-hacking":makeCourse(
+    "Ethical Hacking",
+    "Learn authorized security testing, reconnaissance and vulnerabilities.",
+    "3Kq1MIfTWCE",
+    [
+        "Introduction to Ethical Hacking",
+        "Reconnaissance",
+        "Scanning",
+        "Enumeration",
+        "Web Security",
+        "Vulnerability Assessment",
+        "Penetration Testing",
+        "Security Reporting"
+    ],
+    [
+        "Ethical hacking requires?",
+        ["Authorization","Secret access","No permission","Unknown target"],
+        0
+    ],
+    [
+        "Reconnaissance is mainly?",
+        ["Information gathering","Deleting data","Formatting","Compiling"],
+        0
+    ]
+),
+
+linux:makeCourse(
+    "Linux",
+    "Learn Linux commands, files, permissions, processes and shell basics.",
+    "sWbUDq4S6Y8",
+    [
+        "Introduction to Linux",
+        "Linux File System",
+        "Basic Commands",
+        "Files and Directories",
+        "Permissions",
+        "Processes",
+        "Package Management",
+        "Shell Basics"
+    ],
+    [
+        "Which command lists files?",
+        ["ls","cd","pwd","rm"],
+        0
+    ],
+    [
+        "Which command changes directory?",
+        ["ls","cd","mkdir","touch"],
+        1
+    ]
+),
+
+git:makeCourse(
+    "Git & GitHub",
+    "Learn version control, repositories, commits, branches and GitHub.",
+    "RGOj5yH7evk",
+    [
+        "Introduction to Git",
+        "Repositories",
+        "Commits",
+        "Branches",
+        "Merge",
+        "GitHub",
+        "Pull Requests",
+        "Git Workflow"
+    ],
+    [
+        "Git is used for?",
+        ["Version control","Video editing","Database hosting","Operating systems"],
+        0
+    ],
+    [
+        "Which command creates a Git repository?",
+        ["git init","git start","git create","git repo"],
+        0
+    ]
+),
+
+docker:makeCourse(
+    "Docker",
+    "Learn containers, images, Dockerfiles and containerized applications.",
+    "rjjES5IsPdg",
+    [
+        "Introduction to Docker",
+        "Containers",
+        "Images",
+        "Docker Commands",
+        "Dockerfile",
+        "Docker Compose",
+        "Volumes",
+        "Docker Projects"
+    ],
+    [
+        "Docker is mainly used for?",
+        ["Containers","Databases only","HTML","Networking cables"],
+        0
+    ],
+    [
+        "Which file defines a Docker image build?",
+        ["Dockerfile","docker.txt","image.json","container.html"],
+        0
+    ]
+),
+
+"spoken-english":makeCourse(
+    "Spoken English",
+    "Improve communication, vocabulary, speaking confidence and interviews.",
+    "7S6XK9Yk8QY",
+    [
+        "English Fundamentals",
+        "Vocabulary",
+        "Grammar",
+        "Sentence Formation",
+        "Daily Conversations",
+        "Speaking Practice",
+        "Professional Communication",
+        "Interview English"
+    ],
+    [
+        "Which is correct?",
+        ["I am student","I am a student","I student","I be student"],
+        1
+    ],
+    [
+        "Which is a professional greeting?",
+        ["Hey dude","Good morning","Yo","What"],
+        1
+    ]
+),
+
+placement:makeCourse(
+    "Placement Preparation",
+    "Prepare for aptitude, coding rounds, technical interviews and HR rounds.",
+    "6n1zE8r9sJY",
+    [
+        "Placement Roadmap",
+        "Aptitude",
+        "Logical Reasoning",
+        "Verbal Ability",
+        "Coding Preparation",
+        "Technical Interview",
+        "HR Interview",
+        "Resume and Mock Interview"
+    ],
+    [
+        "Which is important for coding placements?",
+        ["Problem solving","Only typing","Only gaming","Only design"],
+        0
+    ],
+    [
+        "HR interviews commonly assess?",
+        ["Communication and fit","Only SQL","Only mathematics","Only HTML"],
+        0
+    ]
+)
+
+};
+
+const aliases={
+    "htmlcss":"html-css",
+    "datascience":"data-science",
+    "ethicalhacking":"ethical-hacking"
+};
+
+const params=new URLSearchParams(window.location.search);
+
+let courseId=params.get("course");
+
+if(courseId && aliases[courseId]){
+    courseId=aliases[courseId];
+}
+
+const app=document.getElementById("app");
+
+if(!courseId || !courses[courseId]){
+
+    app.innerHTML=`
+        <div class="card error">
+            <h1>Course Not Found</h1>
+            <p>Select a course from the Courses page.</p>
+            <a class="home" href="courses.html">← Back to Courses</a>
+        </div>
+    `;
+
+}else{
+
+    const course=courses[courseId];
+
+    document.title="CSE LearnHub - "+course.title;
+
+    let lessons="";
+
+    course.lessons.forEach((lesson,i)=>{
+
+        lessons+=`
+            <div class="lesson" onclick="selectLesson(this)">
+                <h3>Lesson ${i+1}: ${lesson.title}</h3>
+                <p>${lesson.text}</p>
+            </div>
+        `;
+
+    });
+
+    let quiz="";
+
+    course.quiz.forEach((q,i)=>{
+
+        let options="";
+
+        q[1].forEach((option,j)=>{
+
+            options+=`
+                <label class="option">
+                    <input
+                        type="radio"
+                        name="q${i}"
+                        value="${j}"
+                    >
+                    ${option}
+                </label>
+            `;
+
+        });
+
+        quiz+=`
+            <div class="question">
+                <h3>${i+1}. ${q[0]}</h3>
+                ${options}
+            </div>
+        `;
+
+    });
+
+    app.innerHTML=`
+
+        <section class="card">
+
+            <h1>${course.title}</h1>
+
+            <p class="muted">
+                ${course.description}
+            </p>
+
+        </section>
+
+
+        <section class="card">
+
+            <h2>🎥 Video</h2>
+
+            <iframe
+                class="video"
+                src="https://www.youtube.com/embed/${course.video}"
+                title="${course.title} video"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen>
+            </iframe>
+
+        </section>
+
+
+        <section class="card">
+
+            <h2>📚 Lessons</h2>
+
+            ${lessons}
+
+        </section>
+
+
+        <section class="card">
+
+            <h2>📝 Quiz</h2>
+
+            ${quiz}
+
+            <button onclick="checkQuiz()">
+                Submit Quiz
+            </button>
+
+            <div id="result" class="result"></div>
+
+        </section>
+
+    `;
+
+    window.currentCourse=course;
+}
+
+
+function selectLesson(element){
+
+    document
+        .querySelectorAll(".lesson")
+        .forEach(x=>x.classList.remove("active"));
+
+    element.classList.add("active");
+
+}
+
+
+function checkQuiz(){
+
+    const course=window.currentCourse;
+
+    let score=0;
+
+    course.quiz.forEach((q,i)=>{
+
+        const selected=
+            document.querySelector(
+                `input[name="q${i}"]:checked`
+            );
+
+        if(
+            selected &&
+            Number(selected.value)===q[2]
+        ){
+
+            score++;
+
+        }
+
+    });
+
+    document.getElementById("result").textContent=
+        `Your Score: ${score} / ${course.quiz.length}`;
+
+}
+
+</script>
+
+</body>
+</html>

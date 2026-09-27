@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CSE LearnHub - Courses</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            color: #172033;
+        }
+
+        nav {
+            height: 70px;
+            background: #111827;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 7%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #60a5fa;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: #60a5fa;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #111827, #1d4ed8);
+            color: white;
+            padding: 70px 7%;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 45px;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            opacity: .9;
+        }
+
+        .container {
+            width: 86%;
+            max-width: 1400px;
+            margin: 40px auto;
+        }
+
+        .search-box {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 25px;
+        }
+
+        #search {
+            width: 100%;
+            max-width: 650px;
+            padding: 16px 20px;
+            border: 1px solid #d1d5db;
+            border-radius: 12px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        #search:focus {
+            border-color: #2563eb;
+        }
+
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 35px;
+        }
+
+        .filter-btn {
+            border: none;
+            padding: 11px 18px;
+            border-radius: 25px;
+            background: white;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(0,0,0,.08);
+        }
+
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: #2563eb;
+            color: white;
+        }
+
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .course-card {
+            background: white;
+            border-radius: 18px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,.08);
+            transition: .25s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .course-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px rgba(0,0,0,.13);
+        }
+
+        .course-icon {
+            font-size: 45px;
+            margin-bottom: 15px;
+        }
+
+        .course-category {
+            display: inline-block;
+            width: fit-content;
+            background: #eff6ff;
+            color: #2563eb;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .course-card h2 {
+            font-size: 23px;
+            margin-bottom: 10px;
+        }
+
+        .course-card p {
+            color: #64748b;
+            line-height: 1.6;
+            flex: 1;
+            margin-bottom: 20px;
+        }
+
+        .course-info {
+            display: flex;
+            justify-content: space-between;
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 18px;
+        }
+
+        .start-btn {
+            border: none;
+            background: #2563eb;
+            color: white;
+            padding: 13px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .start-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .empty {
+            display: none;
+            text-align: center;
+            padding: 50px;
+            color: #64748b;
+            font-size: 20px;
+        }
+
+        footer {
+            margin-top: 70px;
+            background: #111827;
+            color: white;
+            text-align: center;
+            padding: 35px;
+        }
+
+        @media(max-width:700px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .container {
+                width: 92%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<nav>
+    <a href="index.html" class="logo">CSE LearnHub</a>
+
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="courses.html">Courses</a>
+    </div>
+</nav>
+
+<section class="hero">
+    <h1>Explore CSE Courses 🚀</h1>
+    <p>Learn programming, development, core CSE, AI, cybersecurity, cloud and career skills.</p>
+</section>
+
+<div class="container">
+
+    <div class="search-box">
+        <input
+            type="text"
+            id="search"
+            placeholder="Search courses... e.g. Python, DSA, AI"
+        >
+    </div>
+
+    <div class="filters">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="programming">Programming</button>
+        <button class="filter-btn" data-filter="web">Web Development</button>
+        <button class="filter-btn" data-filter="core">Core CSE</button>
+        <button class="filter-btn" data-filter="ai">AI & Data</button>
+        <button class="filter-btn" data-filter="security">Security</button>
+        <button class="filter-btn" data-filter="cloud">Cloud & DevOps</button>
+        <button class="filter-btn" data-filter="career">Career</button>
+    </div>
+
+    <div class="course-grid" id="courseGrid">
+
+        <!-- 1 -->
+        <div class="course-card" data-category="programming" data-name="python">
+            <div class="course-icon">🐍</div>
+            <span class="course-category">Programming</span>
+            <h2>Python</h2>
+            <p>Learn Python from absolute beginner level to practical programming.</p>
+            <div class="course-info">
+                <span>📚 8 Lessons</span>
+                <span>Beginner</span>
+            </div>
+            <button class="start-btn" onclick="startLearning('python')">
+                Start Learning
+            </button>
+        </div>
+
+        <!-- 2 -->
+        <div class="course-card" data-category="programming" data-name="java">
+            <div class="course-icon">☕</div>
+            <span class="course-category">Programming</span>
+            <h2>Java</h2>
+            <p>Learn Java programming, OOP, classes, objects and practical coding.</p>
+            <div class="course-info">
+                <span>📚 8 Lessons</span>
+                <span>Beginner</span>
+            </div>
+            <button class="start-btn" onclick="startLearning('java')">
+                Start Learning
+            </button>
+        </div>
+
+        <!-- 3 -->
+        <div class="course-card" data-category="programming" data-name="c programming">
+            <div class="course-icon">©️</div>
+            <span class="course-category">Programming</span>
+            <h2>C Programming</h2>
+            <p>Master C fundamentals, functions, arrays, pointers and memory.</p>
+            <div class="course-info">
+                <span>📚 8 Lessons</span>
+                <span>Beginner</span>
+            </div>
+            <button class="start-btn" onclick="startLearning('c')">
+                Start Learning
+            </button>
+        </div>
+
+        <!-- 4 -->
+        <div class="course-card" data-category="programming" data-name="c++ cpp">
+            <div class="course-icon">⚙️</div>
+            <span class="course-category">Programming</span>
+            <h2>C++</h2>
+            <p>Learn C++ syntax, OOP, STL and problem solving.</p>
+            <div class="course-info">
+                <span>📚 8 Lessons</span>
+                <span>Beginner</span>
+            </div>
+            <button class="start-btn" onclick="startLearning('cpp')">
+                Start Learning
+            </button>
+        </div>
+
+        <!-- 5 -->
+        <div class="course-card" data-category="programming" data-name="javascript js">
+            <div class="course-icon">🟨</div>
+            <span class="course-category">Programming</span>
+            <h2>JavaScript</h2>
+            <p>Learn JavaScript for modern web development and interactive websites.</p>
+            <div class="course-info">
+                <span>📚 8 Lessons</span>
+                <span>Beginner</span>
+            </div>
+            <button class="start-btn" onclick="startLearning('javascript')">
+                Start Learning
+            </button>
+        </div>
+
+        <!-- 6 -->
+        <div class="course-card" data-category="web" data-name="html css">
+            <div class="course-icon">🌐</div>
+            <span class="course-category">Web Development</span>
+            <h2>HTML & CSS</h2>
+            <p>Build beautiful websites using HTML and CSS from scratch.</p>
+            <div class="course-info">
+                <span>📚 8 Lessons</span>
+                <span>Beginner</span>
+            </div>
+            <button class="start-btn" onclick="startLearning('html-css')">
+                Start Learning
+            </button>
+        </div>
+
+        <!-- 7 -->
+        <div class="course-card" data-category="web" data-name="react reactjs">
+            <div class="course-icon">⚛️</div>
+            <span class="course-category">Web Development</span>
+            <h2>React.js</h2>
+            <p>Learn components, props, state and modern React development.</p>
+            <div class="course-info">
+                <span>📚 8 Lessons</span>
+                <span>Intermediate</span>
+            </div>
+            <button class="start-btn" onclick="startLearning('react')">
+                Start Learning
+            </button>
+        </div>
+
+        <!-- 8 -->
+        <div class="course-card" data-category="web" data-name="node nodejs">
+            <div class="course-icon">🟢</div>
+            <span class="course-category">Web Development</span>
+            <h2>Node.js</h2>
+            <p>Build backend applications and APIs using Node.js.</p>
+            <div class="course-info">
+                <span>📚 8 Lessons</span>
+                <span>Intermediate</span>
+            </div>
+            <button class="start-btn" onclick="startLearning('node')">
+                Start Learning
+            </button>
+        </div>
+
+        <!-- 9 -->
+        <div class="course-card" data-category="core" data-name="dsa data structures algorithms">
+            <div class="course-icon">🧠</div>
+            <span class="course-category">Core CSE</span>
+            <h2>DSA</h2>
+            <p>Learn data structures and algorithms for problem solving and placements.</p>
+            <div class="course-info">
+                <span>📚 8 Lessons</span>
+                <span>Intermediate</span>
+            </div>
+            <button class="start-btn" onclick="startLearning('dsa')">
+                Start Learning
+            </button>
+        </div>
+
+        <!-- 10 -->
+        <div class="course-card" data-category="core" data-name="dbms database">
+            <div class="course-icon">🗄️</div>
+            <span class="course-category">Core CSE</span>
+            <h2>DBMS</h2>
+            <p>Learn databases, SQL, keys, normalization and transactions.</p>
+            <div class="course-info">
+                <span>📚 8 Lessons</span>
+                <span>Intermediate</span>
+            </div>
+            <button class="start-btn" onclick="startLearning('dbms')">
+                Start Learning
+            </button>
+        </div>
+
+        <!-- 11 -->
+        <div class="course-card" data-category="core" data-name="operating systems os">
+            <div class="course-icon">💻</div>
+            <span class="course-category">Core CSE</span>
+            <h2>Operating Systems</h2>
+            <p>Processes, threads, memory management, scheduling and file systems.</p>
+            <div class="course-info">
+                <span>📚 8 Lessons</span>
+                <span>Intermediate</span>
+            </div>
+            <button class="start-btn" onclick="startLearning('os')">
+                Start Learning
+            </button>
+        </div>
+
+        <!-- 12 -->
+        <div class="course-card" data-category="core" data-name="computer networks networking">
+            <div class="course-icon">🌐</div>
+            <span class="course-category">Core CSE</span>
+            <h2>Computer Networks</h2>
+            <p>Learn networking, TCP/IP, OSI, HTTP, DNS and network security basics.</p>
+            <div class="course-info">
+                <span>📚 8 Lessons</span>
+                <span>Intermediate</span>
+            </div>
+            <button class="start-btn" onclick="startLearning('networks')">
+                Start Learning
+            </button>
+        </div>
+
+        <!-- 13 -->
+        <div class="course-card" data-category="ai" data-name="artificial intelligence ai">
+            <div class="course-icon">🤖</div>
+            <span class="course-category">AI & Data</span>
+            <h2>Artificial Intelligence</h2>
+            <p>Understand AI concepts, search algorithms, agents and problem solving.</p>
+            <div class="course-info">
+                <span>📚 8 Lessons</span>
+                <span>Intermediate</span>
+            </div>
+            <button class="start-btn" onclick="startLearning('ai')">
+                Start Learning
+            </button>
+        </div>
+
+        <!-- 14 -->
+        <div class="course-card" data-category="ai" data-name="machine learning ml">
+            <div class="course-icon">📈</div>
+            <span class="course-category">AI & Data</span>
+            <h2>Machine Learning</h2>
+            <p>Learn supervised learning, unsupervised learning and model evaluation.</p>
+            <div class="course-info">
+                <span>📚 8 Lessons</span>
+                <span>Intermediate</span>
+            </div>
+            <button class="start-btn" onclick="startLearning('ml')">
+                Start Learning
+            </button>
+        </div>
+
+        <!-- 15 -->
+        <div class="course-card" data-category="ai" data-name="data science datascience">
+            <div class="course-icon">📊</div>
+            <span class="course-category">AI & Data</span>
+            <h2>Data Science</h2>
+            <p>Learn statistics, data analysis, visualization and data science basics.</p>
+            <div class="course-info">
+                <span>📚 8 Lessons</span>
+                <span>Intermediate</span>
+            </div>
+            <button class="start-btn" onclick="startLearning('data-science')">
+                Start Learning
+            </button>
+        </div>
+
+        <!-- 16 -->
+        <div class="course-card" data-category="security" data-name="cybersecurity cyber security">
+            <div class="course-icon">🔐</div>
+            <span class="course-category">Security</span>
+            <h2>Cybersecurity</h2>
+            <p>Learn security fundamentals, threats, authentication and defense.</p>
+            <div class="course-info">
+                <span>📚 8 Lessons</span>
+                <span>Beginner</span>
+            </div>
+            <button class="start-btn" onclick="startLearning('cybersecurity')">
+                Start Learning
+            </button>
+        </div>
+
+        <!-- 17 -->
+        <div class="course-card" data-category="security" data-name="ethical hacking hacking">
+            <div class="course-icon">🛡️</div>
+            <span class="course-category">Security</span>
+            <h2>Ethical Hacking</h2>
+            <p>Learn ethical security testing, reconnaissance and common vulnerabilities.</p>
+            <div class="course-info">
+                <span>📚 8 Lessons</span>
+                <span>Intermediate</span>
+            </div>
+            <button class="start-btn" onclick="startLearning('ethical-hacking')">
+                Start Learning
+            </button>
+        </div>
+
+        <!-- 18 -->
+        <div class="course-card" data-category="cloud" data-name="linux">
+            <div class="course-icon">🐧</div>
+            <span class="course-category">Cloud & DevOps</span>
+            <h2>Linux</h2>
+            <p>Learn Linux commands, files, permissions, processes and shell basics.</p>
+            <div class="course-info">
+                <span>📚 8 Lessons</span>
+                <span>Beginner</span>
+            </div>
+            <button class="start-btn" onclick="startLearning('linux')">
+                Start Learning
+            </button>
+        </div>
+
+        <!-- 19 -->
+        <div class="course-card" data-category="cloud" data-name="git github">
+            <div class="course-icon">🔧</div>
+            <span class="course-category">Cloud & DevOps</span>
+            <h2>Git & GitHub</h2>
+            <p>Learn version control, repositories, commits, branches and GitHub.</p>
+            <div class="course-info">
+                <span>📚 8 Lessons</span>
+                <span>Beginner</span>
+            </div>
+            <button class="start-btn" onclick="startLearning('git')">
+                Start Learning
+            </button>
+        </div>
+
+        <!-- 20 -->
+        <div class="course-card" data-category="cloud" data-name="docker">
+            <div class="course-icon">🐳</div>
+            <span class="course-category">Cloud & DevOps</span>
+            <h2>Docker</h2>
+            <p>Learn containers, images, Dockerfiles and containerized applications.</p>
+            <div class="course-info">
+                <span>📚 8 Lessons</span>
+                <span>Intermediate</span>
+            </div>
+            <button class="start-btn" onclick="startLearning('docker')">
+                Start Learning
+            </button>
+        </div>
+
+        <!-- 21 -->
+        <div class="course-card" data-category="career" data-name="spoken english communication">
+            <div class="course-icon">🗣️</div>
+            <span class="course-category">Career</span>
+            <h2>Spoken English</h2>
+            <p>Improve communication, vocabulary, speaking confidence and interviews.</p>
+            <div class="course-info">
+                <span>📚 8 Lessons</span>
+                <span>Beginner</span>
+            </div>
+            <button class="start-btn" onclick="startLearning('spoken-english')">
+                Start Learning
+            </button>
+        </div>
+
+        <!-- 22 -->
+        <div class="course-card" data-category="career" data-name="placement interview jobs">
+            <div class="course-icon">🎯</div>
+            <span class="course-category">Career</span>
+            <h2>Placement Preparation</h2>
+            <p>Prepare for aptitude, coding rounds, technical interviews and HR rounds.</p>
+            <div class="course-info">
+                <span>📚 8 Lessons</span>
+                <span>Intermediate</span>
+            </div>
+            <button class="start-btn" onclick="startLearning('placement')">
+                Start Learning
+            </button>
+        </div>
+
+    </div>
+
+    <div class="empty" id="empty">
+        No courses found 😕
+    </div>
+
+</div>
+
+<footer>
+    <h2>CSE LearnHub</h2>
+    <p>Learn. Practice. Build. Get Ready.</p>
+</footer>
+
+<script>
+
+    function startLearning(courseId) {
+        window.location.href =
+            "course.html?course=" +
+            encodeURIComponent(courseId);
+    }
+
+    const search = document.getElementById("search");
+    const cards = document.querySelectorAll(".course-card");
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    const empty = document.getElementById("empty");
+
+    let currentFilter = "all";
+
+    function filterCourses() {
+
+        const text =
+            search.value.toLowerCase().trim();
+
+        let visible = 0;
+
+        cards.forEach(card => {
+
+            const name =
+                card.dataset.name.toLowerCase();
+
+            const category =
+                card.dataset.category;
+
+            const matchesSearch =
+                name.includes(text);
+
+            const matchesFilter =
+                currentFilter === "all" ||
+                category === currentFilter;
+
+            if (matchesSearch && matchesFilter) {
+
+                card.style.display = "flex";
+                visible++;
+
+            } else {
+
+                card.style.display = "none";
+
+            }
+
+        });
+
+        empty.style.display =
+            visible === 0 ? "block" : "none";
+    }
+
+    search.addEventListener("input", filterCourses);
+
+    filterButtons.forEach(button => {
+
+        button.addEventListener("click", function() {
+
+            filterButtons.forEach(btn =>
+                btn.classList.remove("active")
+            );
+
+            this.classList.add("active");
+
+            currentFilter =
+                this.dataset.filter;
+
+            filterCourses();
+
+        });
+
+    });
+
+</script>
+
+</body>
+</html>
