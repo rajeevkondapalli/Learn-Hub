@@ -1,31 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CSE LearnHub - Course</title>
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Arial,sans-serif;background:#0f172a;color:#fff;line-height:1.6}
-nav{height:70px;background:#111827;border-bottom:1px solid #334155;display:flex;align-items:center;justify-content:space-between;padding:0 5%}
-.logo{font-size:23px;font-weight:700}.logo span{color:#6366f1}.back{color:#fff;text-decoration:none}.wrap{width:92%;max-width:1100px;margin:35px auto}
-.card{background:#1e293b;border:1px solid #334155;border-radius:14px;padding:25px;margin-bottom:22px}
-h1{font-size:38px;color:#818cf8;margin-bottom:10px}.muted{color:#cbd5e1}
-.video{width:100%;aspect-ratio:16/9;border:0;border-radius:10px;margin-top:15px}
-h2{margin-bottom:16px}.lesson{background:#111827;border:1px solid #334155;border-radius:9px;padding:16px;margin:10px 0;cursor:pointer}.lesson:hover,.lesson.active{border-color:#6366f1;background:#202b46}.lesson p{color:#94a3b8;margin-top:5px}
-.question{background:#111827;border-radius:9px;padding:18px;margin:14px 0}.option{display:block;background:#1e293b;padding:10px;border-radius:7px;margin:7px 0;cursor:pointer}.option:hover{background:#334155}
-button,.home{background:#6366f1;color:#fff;border:0;border-radius:8px;padding:12px 20px;font-size:16px;cursor:pointer;text-decoration:none;display:inline-block}button:hover,.home:hover{background:#4f46e5}.result{margin-top:15px;font-size:18px;font-weight:700}.error{text-align:center;padding:80px 20px}.error p{color:#94a3b8;margin:10px 0 20px}
-@media(max-width:650px){nav{padding:0 18px}.wrap{width:94%}h1{font-size:30px}.card{padding:18px}}
-</style>
-</head>
-<body>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSE LearnHub - Course</title>
 
-<nav>
-    <div class="logo">CSE <span>LearnHub</span></div>
-    <a class="back" href="learn-hub/courses.html">← Back to Courses</a>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="course-page">
+
+<div class="cursor-glow"></div>
+
+<nav class="navbar">
+    <a href="index.html" class="logo">CSE <span>LearnHub</span></a>
+
+    <button
+        class="menu-toggle"
+        type="button"
+        aria-label="Toggle navigation"
+        aria-expanded="false"
+    >
+        &#9776;
+    </button>
+
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="courses.html" class="active">Courses</a>
+    </div>
 </nav>
 
 <main class="wrap" id="app"></main>
+
+<script src="js/app.js"></script>
 
 <script>
 
@@ -35,7 +41,7 @@ const makeCourse=(title,description,video,topics,q1,q2)=>({
     video,
     lessons:topics.map((x,i)=>({
         title:x,
-        text:`Lesson ${i+1}: Learn the fundamentals of ${x.toLowerCase()} with examples and practice.`
+        text:`Lesson ${i+1}: Learn the fundamentals of ${x.toLowerCase()} with examples, key concepts and hands-on practice.`
     })),
     quiz:[q1,q2]
 });
@@ -59,12 +65,14 @@ python:makeCourse(
     [
         "Which keyword creates a function?",
         ["def","function","fun","create"],
-        0
+        0,
+        "Functions are defined with the `def` keyword."
     ],
     [
         "Which type stores True or False?",
         ["String","Integer","Boolean","Float"],
-        2
+        2,
+        "Boolean values are either True or False."
     ]
 ),
 
@@ -85,12 +93,14 @@ java:makeCourse(
     [
         "Which keyword creates a class?",
         ["class","new","object","Class"],
-        0
+        0,
+        "The `class` keyword declares a class."
     ],
     [
         "Which method starts a Java program?",
         ["run()","start()","main()","begin()"],
-        2
+        2,
+        "Execution begins at the `main()` method."
     ]
 ),
 
@@ -111,12 +121,14 @@ c:makeCourse(
     [
         "What is the entry point of a C program?",
         ["start()","main()","run()","begin()"],
-        1
+        1,
+        "Every C program starts from `main()`."
     ],
     [
         "Which symbol ends a C statement?",
         [".",";",":",","],
-        1
+        1,
+        "A semicolon `;` terminates a statement in C."
     ]
 ),
 
@@ -137,12 +149,14 @@ cpp:makeCourse(
     [
         "C++ is based on which language?",
         ["Java","C","Python","JavaScript"],
-        1
+        1,
+        "C++ was developed as an extension of C."
     ],
     [
         "Which keyword creates a class?",
         ["object","class","define","new"],
-        1
+        1,
+        "The `class` keyword defines a class in C++."
     ]
 ),
 
@@ -168,12 +182,14 @@ html:makeCourse(
             "Hyper Tool Multi Language",
             "Home Tool Markup Language"
         ],
-        0
+        0,
+        "HTML = Hyper Text Markup Language."
     ],
     [
         "Which tag creates a paragraph?",
         ["<h1>","<p>","<text>","<para>"],
-        1
+        1,
+        "The `<p>` tag defines a paragraph."
     ]
 ),
 
@@ -199,12 +215,14 @@ css:makeCourse(
             "Creative Style System",
             "Colorful Style Sheets"
         ],
-        1
+        1,
+        "CSS = Cascading Style Sheets."
     ],
     [
         "Which property changes text color?",
         ["font","text","color","background"],
-        2
+        2,
+        "The `color` property sets text color."
     ]
 ),
 
@@ -230,12 +248,14 @@ dbms:makeCourse(
             "Database Machine System",
             "Data Management Software"
         ],
-        0
+        0,
+        "DBMS = Database Management System."
     ],
     [
         "Which key uniquely identifies a record?",
         ["Foreign Key","Primary Key","Secondary Key","Duplicate Key"],
-        1
+        1,
+        "A primary key uniquely identifies each row."
     ]
 ),
 
@@ -256,12 +276,14 @@ javascript:makeCourse(
     [
         "Which keyword declares a constant?",
         ["var","let","const","constant"],
-        2
+        2,
+        "The `const` keyword declares a constant."
     ],
     [
         "Which method selects an element by ID?",
         ["getElementById()","selectId()","findId()","getId()"],
-        0
+        0,
+        "`getElementById()` finds an element by its id."
     ]
 ),
 
@@ -282,12 +304,14 @@ javascript:makeCourse(
     [
         "HTML provides what?",
         ["Structure","Database","Server","Compiler"],
-        0
+        0,
+        "HTML gives a page its structure."
     ],
     [
         "CSS is mainly used for?",
         ["Styling","Database","Networking","Compilation"],
-        0
+        0,
+        "CSS controls the visual styling of a page."
     ]
 ),
 
@@ -308,12 +332,14 @@ react:makeCourse(
     [
         "React is mainly used for?",
         ["UI development","Databases","Operating systems","Networking"],
-        0
+        0,
+        "React builds user interfaces."
     ],
     [
         "Which hook manages state?",
         ["useState","useData","useValue","useComponent"],
-        0
+        0,
+        "`useState` is the state management hook."
     ]
 ),
 
@@ -334,12 +360,14 @@ node:makeCourse(
     [
         "Node.js is mainly used for?",
         ["Server-side JavaScript","CSS styling","Database design","Image editing"],
-        0
+        0,
+        "Node.js runs JavaScript on the server."
     ],
     [
         "What does npm manage?",
         ["Packages","Images","Hardware","Networks"],
-        0
+        0,
+        "npm manages JavaScript packages."
     ]
 ),
 
@@ -360,12 +388,14 @@ dsa:makeCourse(
     [
         "Which structure follows LIFO?",
         ["Queue","Stack","Tree","Graph"],
-        1
+        1,
+        "A stack follows Last In, First Out."
     ],
     [
         "Which structure follows FIFO?",
         ["Stack","Queue","Tree","Array"],
-        1
+        1,
+        "A queue follows First In, First Out."
     ]
 ),
 
@@ -386,12 +416,14 @@ os:makeCourse(
     [
         "What does an OS manage?",
         ["Computer resources","Only websites","Only databases","Only code"],
-        0
+        0,
+        "An OS manages hardware and software resources."
     ],
     [
         "Which is a CPU scheduling algorithm?",
         ["FCFS","HTML","SQL","DNS"],
-        0
+        0,
+        "FCFS (First Come First Served) is a scheduling algorithm."
     ]
 ),
 
@@ -412,12 +444,14 @@ networks:makeCourse(
     [
         "How many layers does OSI have?",
         ["5","6","7","8"],
-        2
+        2,
+        "The OSI model has 7 layers."
     ],
     [
         "DNS mainly translates domain names to?",
         ["IP addresses","HTML","Ports","Files"],
-        0
+        0,
+        "DNS resolves names to IP addresses."
     ]
 ),
 
@@ -443,12 +477,14 @@ ai:makeCourse(
             "Advanced Input",
             "Artificial Interface"
         ],
-        0
+        0,
+        "AI = Artificial Intelligence."
     ],
     [
         "A* is a type of?",
         ["Search algorithm","Database","Compiler","Network"],
-        0
+        0,
+        "A* is a pathfinding search algorithm."
     ]
 ),
 
@@ -469,12 +505,14 @@ ml:makeCourse(
     [
         "Which is supervised learning?",
         ["Linear Regression","K-Means","Clustering","PCA"],
-        0
+        0,
+        "Linear regression is a supervised method."
     ],
     [
         "K-Means is used for?",
         ["Clustering","Sorting","Routing","Compilation"],
-        0
+        0,
+        "K-Means is an unsupervised clustering algorithm."
     ]
 ),
 
@@ -495,12 +533,14 @@ ml:makeCourse(
     [
         "Which library is commonly used for DataFrames?",
         ["Pandas","React","Express","Docker"],
-        0
+        0,
+        "Pandas provides DataFrame structures."
     ],
     [
         "Which library is used for numerical arrays?",
         ["NumPy","Flask","Node","Git"],
-        0
+        0,
+        "NumPy provides fast numerical arrays."
     ]
 ),
 
@@ -526,12 +566,14 @@ cybersecurity:makeCourse(
             "Code Internet Application",
             "Central Information Area"
         ],
-        0
+        0,
+        "CIA = Confidentiality, Integrity, Availability."
     ],
     [
         "Encryption protects?",
         ["Information","Only hardware","Only cables","Only monitors"],
-        0
+        0,
+        "Encryption protects information confidentiality."
     ]
 ),
 
@@ -552,12 +594,14 @@ cybersecurity:makeCourse(
     [
         "Ethical hacking requires?",
         ["Authorization","Secret access","No permission","Unknown target"],
-        0
+        0,
+        "Ethical hacking always requires permission."
     ],
     [
         "Reconnaissance is mainly?",
         ["Information gathering","Deleting data","Formatting","Compiling"],
-        0
+        0,
+        "Reconnaissance is information gathering."
     ]
 ),
 
@@ -578,12 +622,14 @@ linux:makeCourse(
     [
         "Which command lists files?",
         ["ls","cd","pwd","rm"],
-        0
+        0,
+        "`ls` lists directory contents."
     ],
     [
         "Which command changes directory?",
         ["ls","cd","mkdir","touch"],
-        1
+        1,
+        "`cd` changes the current directory."
     ]
 ),
 
@@ -604,12 +650,14 @@ git:makeCourse(
     [
         "Git is used for?",
         ["Version control","Video editing","Database hosting","Operating systems"],
-        0
+        0,
+        "Git is a version control system."
     ],
     [
         "Which command creates a Git repository?",
         ["git init","git start","git create","git repo"],
-        0
+        0,
+        "`git init` creates a new repository."
     ]
 ),
 
@@ -630,12 +678,14 @@ docker:makeCourse(
     [
         "Docker is mainly used for?",
         ["Containers","Databases only","HTML","Networking cables"],
-        0
+        0,
+        "Docker packages apps into containers."
     ],
     [
         "Which file defines a Docker image build?",
         ["Dockerfile","docker.txt","image.json","container.html"],
-        0
+        0,
+        "A Dockerfile defines the image build."
     ]
 ),
 
@@ -656,12 +706,14 @@ docker:makeCourse(
     [
         "Which is correct?",
         ["I am student","I am a student","I student","I be student"],
-        1
+        1,
+        "Articles are needed before singular nouns: 'a student'."
     ],
     [
         "Which is a professional greeting?",
         ["Hey dude","Good morning","Yo","What"],
-        1
+        1,
+        "'Good morning' is a professional greeting."
     ]
 ),
 
@@ -682,12 +734,14 @@ placement:makeCourse(
     [
         "Which is important for coding placements?",
         ["Problem solving","Only typing","Only gaming","Only design"],
-        0
+        0,
+        "Problem solving is the core placement skill."
     ],
     [
         "HR interviews commonly assess?",
         ["Communication and fit","Only SQL","Only mathematics","Only HTML"],
-        0
+        0,
+        "HR rounds assess communication and culture fit."
     ]
 )
 
@@ -715,7 +769,7 @@ if(!courseId || !courses[courseId]){
         <div class="card error">
             <h1>Course Not Found</h1>
             <p>Select a course from the Courses page.</p>
-            <a class="home" href="learn-hub/courses.html">← Back to Courses</a>
+            <a class="home" href="courses.html">← Back to Courses</a>
         </div>
     `;
 
@@ -725,13 +779,28 @@ if(!courseId || !courses[courseId]){
 
     document.title="CSE LearnHub - "+course.title;
 
+    const storageKey="learnhub-progress-"+courseId;
+
+    let done=[];
+
+    try{
+        done=JSON.parse(localStorage.getItem(storageKey))||[];
+    }catch(e){
+        done=[];
+    }
+
     let lessons="";
 
     course.lessons.forEach((lesson,i)=>{
 
+        const isDone=done.includes(i);
+
         lessons+=`
-            <div class="lesson" onclick="selectLesson(this)">
-                <h3>Lesson ${i+1}: ${lesson.title}</h3>
+            <div class="lesson ${isDone?"done":""}" data-index="${i}" onclick="selectLesson(this)">
+                <div class="lesson-head">
+                    <h3>Lesson ${i+1}: ${lesson.title}</h3>
+                    <span class="lesson-check">&#10003;</span>
+                </div>
                 <p>${lesson.text}</p>
             </div>
         `;
@@ -741,6 +810,8 @@ if(!courseId || !courses[courseId]){
     let quiz="";
 
     course.quiz.forEach((q,i)=>{
+
+        const explanation=q[3]||("Correct answer: "+q[1][q[2]]);
 
         let options="";
 
@@ -763,6 +834,9 @@ if(!courseId || !courses[courseId]){
             <div class="question">
                 <h3>${i+1}. ${q[0]}</h3>
                 ${options}
+                <div class="explain" id="explain-${i}">
+                    💡 ${explanation}
+                </div>
             </div>
         `;
 
@@ -777,6 +851,13 @@ if(!courseId || !courses[courseId]){
             <p class="muted">
                 ${course.description}
             </p>
+
+            <div class="progress-wrap">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <span class="progress-text" id="progressText"></span>
+            </div>
 
         </section>
 
@@ -811,7 +892,7 @@ if(!courseId || !courses[courseId]){
 
             ${quiz}
 
-            <button onclick="checkQuiz()">
+            <button class="btn" onclick="checkQuiz()">
                 Submit Quiz
             </button>
 
@@ -822,19 +903,55 @@ if(!courseId || !courses[courseId]){
     `;
 
     window.currentCourse=course;
+    window.progressKey=storageKey;
+    window.doneLessons=done;
+
+    updateProgress();
 }
 
+function updateProgress(){
+
+    const total=window.currentCourse.lessons.length;
+    const done=window.doneLessons.length;
+    const pct=Math.round((done/total)*100);
+
+    const fill=document.getElementById("progressFill");
+    const text=document.getElementById("progressText");
+
+    if(fill){
+        fill.style.width=pct+"%";
+    }
+
+    if(text){
+        text.textContent=done+" / "+total+" lessons";
+    }
+
+}
 
 function selectLesson(element){
 
-    document
-        .querySelectorAll(".lesson")
-        .forEach(x=>x.classList.remove("active"));
+    element.classList.toggle("active");
 
-    element.classList.add("active");
+    const index=Number(element.dataset.index);
+
+    if(!window.doneLessons.includes(index)){
+
+        window.doneLessons.push(index);
+
+        element.classList.add("done");
+
+        try{
+            localStorage.setItem(
+                window.progressKey,
+                JSON.stringify(window.doneLessons)
+            );
+        }catch(e){}
+
+        updateProgress();
+
+    }
 
 }
-
 
 function checkQuiz(){
 
@@ -849,19 +966,51 @@ function checkQuiz(){
                 `input[name="q${i}"]:checked`
             );
 
-        if(
-            selected &&
-            Number(selected.value)===q[2]
-        ){
+        document
+            .querySelectorAll(`input[name="q${i}"]`)
+            .forEach(input=>{
 
+                const label=input.closest(".option");
+
+                label.classList.remove("correct","wrong");
+
+                if(Number(input.value)===q[2]){
+                    label.classList.add("correct");
+                }
+
+            });
+
+        if(selected && Number(selected.value)===q[2]){
             score++;
+        }else if(selected){
+            selected.closest(".option").classList.add("wrong");
+        }
 
+        const explain=document.getElementById("explain-"+i);
+
+        if(explain){
+            explain.classList.add("show");
         }
 
     });
 
+    document
+        .querySelectorAll('input[type="radio"]')
+        .forEach(input=>input.disabled=true);
+
+    const total=course.quiz.length;
+    const pct=Math.round((score/total)*100);
+
+    let message="Keep practicing! 💪";
+
+    if(pct===100){
+        message="Perfect! 🎉";
+    }else if(pct>=50){
+        message="Good job! 👍";
+    }
+
     document.getElementById("result").textContent=
-        `Your Score: ${score} / ${course.quiz.length}`;
+        `Your Score: ${score} / ${total} (${pct}%) — ${message}`;
 
 }
 
